@@ -1,14 +1,21 @@
 <div class="row">
     {{#each events}}
-        <div class="col-md-3">
+        <div class="col-md-4 mx-auto">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">
-                        {{title}}
-                    </h4>
-                    <p>{{description}}</p>
+                    <form action="/events/new-event" method="POST">
+                        <h4 class="card-title">
+                            {{title}}
+                        </h4>
+                        <p>{{description}}</p>
+                        <p>{{location}}</p>
+                        <p>{{date}}</p>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-block" type="submit">Edit</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
         </div>
     {{/each}}
 </div>

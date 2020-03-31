@@ -23,6 +23,8 @@
     "express": "^4.17.1",
     "express-handlebars": "^4.0.0",
     "express-session": "^1.17.0",
+    "handlebars-dateformat": "^1.1.1",
+    "handlebars-intl": "^1.1.2",
     "method-override": "^3.0.0",
     "mongoose": "^5.9.6",
     "passport": "^0.4.1",

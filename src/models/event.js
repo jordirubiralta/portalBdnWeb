@@ -14,10 +14,11 @@ const EventSchema = new Schema({
         type: Date,
         required: true,
         default: Date.now
-    }/*,
+    },
     img: {
         type: String,
-        required: true
+        required: true,
+        default: 'img'
     },
     location: {
         type: String,
@@ -26,7 +27,7 @@ const EventSchema = new Schema({
     organizator: {
         type: String,
         required: true
-    }*/
+    }
 });
 
 module.exports = mongoose.model('Event', EventSchema);

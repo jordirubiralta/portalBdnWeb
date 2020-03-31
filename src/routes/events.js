@@ -19,7 +19,9 @@ router.post('/events/new-event', async (req, res) => {
         res.render('events/new-event', {
             errors,
             title,
-            description
+            description,
+            location,
+            date
         });
     } else {
         const newEvent = new Event({ title, description });
