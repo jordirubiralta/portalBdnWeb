@@ -32,8 +32,24 @@ router.post('/events/new-event', async (req, res) => {
 
 router.get('/events', async (req, res) => {
     const events = await Event.find().sort({date: 'desc'}).lean();
-    console.log(events[1]);
     res.render('events/all-events', { events: events });
+});
+
+router.get('/events/edit/:id', async (req, res) => {
+    const event = await Event.findById(req.params.id).lean();
+    console.log(event);
+    res.render('events/edit-event', { event });
+});
+
+router.put('/events/edit-event/:id', async (req, res) => {
+    const {title, description, date, location } = req.body;
+    await Event.findByIdAndUpdate(req.params.id, { title, description, date, location });
+    res.redirect('/events')
+});
+
+router.delete('/events/delete/:id', async (req, res) => {
+    await Event.findByIdAndRemove(req.params.id);
+    res.redirect('/events')
 });
 
 module.exports = router;

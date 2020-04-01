@@ -1,0 +1,31 @@
+<div class="col-md-4 mx-auto">
+    <div class="card">
+        <div class="card-header">
+            <h3>Editar esdeveniment</h3>
+        </div>
+        <div class="card-body">
+            <form action="/events/edit-event/{{event._id}}?_method=PUT" method="POST">
+                <input type="hidden" name="_method" value="PUT">
+                <div class="form-group">
+                    <h5>Títol</h5>
+                    <input type="text" name="title" class="form-control" placeholder="Títol esdeveniment" autofocus value="{{event.title}}">
+                </div>
+                <div class="form-group">
+                    <h5>Descripció</h5>
+                    <textarea name="description" class="form-control" placeholder="Descripció de l'esdeveniment">{{event.description}}</textarea>
+                </div>
+                <div class="form-group">
+                    <h5>Ubicació</h5>
+                    <input type="text" name="location" class="form-control" placeholder="Ubicació" value="{{event.location}}">
+                </div>
+                <div class="form-group">
+                    <h5>Data</h5>
+                    <input type='datetime-local' name="date" class="form-control" value="{{event.date}}">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="submit">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
