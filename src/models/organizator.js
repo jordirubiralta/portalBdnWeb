@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 const bcrypt = require('bcryptjs');
 
 const OrganizatorSchema = new Schema({
-    organizator: {
+    name: {
         type: String, 
         required: true
     },
