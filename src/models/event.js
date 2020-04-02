@@ -26,7 +26,8 @@ const EventSchema = new Schema({
     },
     organizator: {
         type: String,
-        required: true
+        required: true,
+        default: 'AE MINGUELLA'
     }
 });
 

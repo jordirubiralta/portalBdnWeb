@@ -7,7 +7,7 @@ router.get('/events/add', (req, res) => {
 });
 
 router.post('/events/new-event', async (req, res) => {
-    const { title, description } = req.body;
+    const { title, description, location } = req.body;
     const errors = [];
     if (!title) {
         errors.push({text: 'Falta afegir un títol'})
@@ -24,8 +24,9 @@ router.post('/events/new-event', async (req, res) => {
             date
         });
     } else {
-        const newEvent = new Event({ title, description });
+        const newEvent = new Event({ title, description, location });
         await newEvent.save();
+        req.flash('success_msg', 'Esdeveniment creat correctament');
         res.redirect('/events')
     }
 });
@@ -37,18 +38,19 @@ router.get('/events', async (req, res) => {
 
 router.get('/events/edit/:id', async (req, res) => {
     const event = await Event.findById(req.params.id).lean();
-    console.log(event);
     res.render('events/edit-event', { event });
 });
 
 router.put('/events/edit-event/:id', async (req, res) => {
     const {title, description, date, location } = req.body;
     await Event.findByIdAndUpdate(req.params.id, { title, description, date, location });
+    req.flash('success_msg', 'Esdeveniment actualitzat correctament');
     res.redirect('/events')
 });
 
 router.delete('/events/delete/:id', async (req, res) => {
     await Event.findByIdAndRemove(req.params.id);
+    req.flash('success_msg', 'Esdeveniment esborrat correctament');
     res.redirect('/events')
 });
 
