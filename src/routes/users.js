@@ -1,7 +1,14 @@
 const router = require('express').Router();
 
 const Organizator = require('../models/organizator');
+const { isAuthenticated } = require('../helpers/auth');
+
 const passport = require('passport');
+
+router.get('/users/list', isAuthenticated, async (req, res) => {
+    const organizators = await Organizator.find().sort({ name: 'desc' }).lean();
+    res.render('users/list', { organizators: organizators});
+});
 
 router.get('/users/signin', (req, res) => {
     res.render('users/signin');

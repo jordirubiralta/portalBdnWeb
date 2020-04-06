@@ -1,0 +1,29 @@
+<div class="row">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Email</th>
+                <th scope="col">Data de creació</th>
+                <th scope="col">Acció</th>
+            </tr>
+        </thead>
+        {{#each organizators}}
+            <tbody>
+                <tr class="table-light">
+                    <td>{{name}}</td>
+                    <td>{{email}}</td>
+                    <td>{{creation_date}}</td>
+                    <td>
+                        <form action="/users/edit-organizator/{{_id}}?_method=PUT" method="POST">
+                        <input type="hidden" name="_method" value="PUT"> 
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit">Resoldre</button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        {{/each}}
+    </table>
+</div>
