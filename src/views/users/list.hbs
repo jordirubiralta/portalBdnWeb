@@ -21,6 +21,12 @@
                                 <button class="btn btn-primary" type="submit">Resoldre</button>
                             </div>
                         </form>
+                        <form action="/users/edit-organizator/{{_id}}?_method=PUT" method="POST">
+                        <input type="hidden" name="_method" value="PUT"> 
+                            <div class="form-group">
+                                <button class="btn btn-danger" type="submit">Esborrar</button>
+                            </div>
+                        </form>
                     </td>
                 </tr>
             </tbody>
