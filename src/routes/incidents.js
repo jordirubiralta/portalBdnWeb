@@ -7,7 +7,6 @@ const { isAuthenticated } = require('../helpers/auth');
 router.get('/incidents', isAuthenticated, async (req, res) => {
     const organizator = await Organizator.findById(req.user.id).lean();
     const incidents = await Incident.find().sort({date: 'desc'}).lean();
-    console.log(incidents)
     res.render('incidents/all-incidents', { incidents: incidents, admin: organizator.admin });
 });
 

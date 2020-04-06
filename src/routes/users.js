@@ -6,8 +6,9 @@ const { isAuthenticated } = require('../helpers/auth');
 const passport = require('passport');
 
 router.get('/users/list', isAuthenticated, async (req, res) => {
+    const organizator = await Organizator.findById(req.user.id).lean();
     const organizators = await Organizator.find().sort({ name: 'desc' }).lean();
-    res.render('users/list', { organizators: organizators});
+    res.render('users/list', { organizators: organizators, admin: organizator.admin });
 });
 
 router.get('/users/signin', (req, res) => {
