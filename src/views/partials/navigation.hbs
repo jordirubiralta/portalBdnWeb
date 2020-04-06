@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+      <a class="navbar-brand" href="/">Portal Badalona</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            {{#if user}}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Esdeveniments
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="/events">Tots els esdeveniments</a>
+                    <a class="dropdown-item" href="/events/add">Afegir esdeveniment</a>
+                    </div>
+                </li>
+                {{#if admin}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/incidents">Incidències</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/signup">Crear organitzador</a>
+                    </li>
+                {{/if}}
+            {{/if}}
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            {{#if user}}
+                <li class="nav-item">
+                    <a class="nav-link" href="/users/logout">Tancar sessió</a>
+                </li>
+            {{else}}
+                <li class="nav-item active">
+                    <a class="nav-link" href="/users/signin">Iniciar sessió</a>
+                </li>
+            {{/if}} 
+        </ul>
+    </div>
+  </div>
+</nav>

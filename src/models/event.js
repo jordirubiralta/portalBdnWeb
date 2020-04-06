@@ -25,9 +25,10 @@ const EventSchema = new Schema({
         required: true
     },
     organizator: {
-        type: String,
-        required: true,
-        default: 'AE MINGUELLA'
+        type: String        
+    },
+    user: { 
+        type: String
     }
 });
 

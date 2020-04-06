@@ -1,0 +1,40 @@
+</form>
+<div class="row">
+    {{#each incidents}}
+        <div class="col-md-4 mx-auto">
+            <div class="card">
+                <div class="card-header" align="center">
+                    <h4 class="card-title">
+                        {{title}}
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="text">
+                        <strong>Descripció: </strong>
+                    </div>
+                    <p>{{description}}</p>
+                    <div class="text">
+                        <strong>Ubicació: </strong>
+                    </div>
+                    <p>{{location}}</p>
+                    <div class="text">
+                        <strong>Data de creació: </strong>
+                    </div>
+                    <p>{{date}}</p>
+                    {{#if resolved}}
+                    <div class="form-group" align="center">
+                        <button type="button" class="btn btn-success">Incidència resolta</button>
+                    </div>
+                    {{else}}
+                        <form action="/incidents/edit-incident/{{_id}}?_method=PUT" method="POST">
+                        <input type="hidden" name="_method" value="PUT"> 
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-block" type="submit">Marcar com a resolt</button>
+                            </div>
+                        </form>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    {{/each}}
+</div>

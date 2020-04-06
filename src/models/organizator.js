@@ -21,8 +21,11 @@ const OrganizatorSchema = new Schema({
     creation_date: {
         type: Date,
         default: Date.now
+    },
+    admin: {
+        type: Boolean,
+        default: false
     }
-    
 });
 
 OrganizatorSchema.methods.encryptPassword = async (password) => {

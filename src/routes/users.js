@@ -1,7 +1,6 @@
 const router = require('express').Router();
 
 const Organizator = require('../models/organizator');
-
 const passport = require('passport');
 
 router.get('/users/signin', (req, res) => {
@@ -14,8 +13,9 @@ router.post('/users/signin', passport.authenticate('local', {
     failureFlash: true
 }));
 
-router.get('/users/signup', (req, res) => {
-    res.render('users/signup');
+router.get('/users/signup', async (req, res) => {
+    const organizator = await Organizator.findById(req.user.id).lean();
+    res.render('users/signup', { admin: organizator.admin });
 });
 
 router.post('/users/signup', async (req, res) => {
@@ -39,7 +39,12 @@ router.post('/users/signup', async (req, res) => {
         newOrganizator.password = await newOrganizator.encryptPassword(password);
         await newOrganizator.save();
         req.flash('success_msg', 'Usuari registrat correctament');
-        res.redirect('/users/signin')
+        res.redirect('/events')
     }
 });
+
+router.get('/users/logout', (req, res) => {
+    req.logout()
+    res.redirect('/')
+})
 module.exports = router;

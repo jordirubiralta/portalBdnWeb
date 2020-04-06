@@ -1,12 +1,15 @@
 const router = require('express').Router();
 
 const Event = require('../models/event');
+const Organizator = require('../models/organizator');
+const { isAuthenticated } = require('../helpers/auth');
 
-router.get('/events/add', (req, res) => {
-    res.render('events/new-event');
+router.get('/events/add', isAuthenticated, async (req, res) => {
+    const organizator = await Organizator.findById(req.user.id).lean();
+    res.render('events/new-event', { admin: organizator.admin });
 });
 
-router.post('/events/new-event', async (req, res) => {
+router.post('/events/new-event', isAuthenticated,  async (req, res) => {
     const { title, description, location } = req.body;
     const errors = [];
     if (!title) {
@@ -25,30 +28,34 @@ router.post('/events/new-event', async (req, res) => {
         });
     } else {
         const newEvent = new Event({ title, description, location });
+        newEvent.organizator = req.user.name;
+        newEvent.user = req.user.id;
         await newEvent.save();
         req.flash('success_msg', 'Esdeveniment creat correctament');
         res.redirect('/events')
     }
 });
 
-router.get('/events', async (req, res) => {
-    const events = await Event.find().sort({date: 'desc'}).lean();
-    res.render('events/all-events', { events: events });
+router.get('/events', isAuthenticated, async (req, res) => {
+    const organizator = await Organizator.findById(req.user.id).lean();
+    const events = await Event.find({ user: req.user.id }).sort({date: 'desc'}).lean();
+    res.render('events/all-events', { events: events, admin: organizator.admin });
 });
 
 router.get('/events/edit/:id', async (req, res) => {
+    const organizator = await Organizator.findById(req.user.id).lean();
     const event = await Event.findById(req.params.id).lean();
-    res.render('events/edit-event', { event });
+    res.render('events/edit-event', { event: event, admin: organizator.admin });
 });
 
-router.put('/events/edit-event/:id', async (req, res) => {
+router.put('/events/edit-event/:id', isAuthenticated, async (req, res) => {
     const {title, description, date, location } = req.body;
     await Event.findByIdAndUpdate(req.params.id, { title, description, date, location });
     req.flash('success_msg', 'Esdeveniment actualitzat correctament');
     res.redirect('/events')
 });
 
-router.delete('/events/delete/:id', async (req, res) => {
+router.delete('/events/delete/:id', isAuthenticated, async (req, res) => {
     await Event.findByIdAndRemove(req.params.id);
     req.flash('success_msg', 'Esdeveniment esborrat correctament');
     res.redirect('/events')
