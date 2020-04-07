@@ -42,20 +42,20 @@ router.get('/events', isAuthenticated, async (req, res) => {
     res.render('events/all-events', { events: events, admin: organizator.admin });
 });
 
-router.get('/events/edit/:id', async (req, res) => {
+router.get('/events/edit/:id', isAuthenticated, async (req, res) => {
     const organizator = await Organizator.findById(req.user.id).lean();
     const event = await Event.findById(req.params.id).lean();
     res.render('events/edit-event', { event: event, admin: organizator.admin });
 });
 
-router.put('/events/edit-event/:id', isAuthenticated, async (req, res) => {
+router.put('/events/edit-event/:id', async (req, res) => {
     const {title, description, date, location } = req.body;
     await Event.findByIdAndUpdate(req.params.id, { title, description, date, location });
     req.flash('success_msg', 'Esdeveniment actualitzat correctament');
     res.redirect('/events')
 });
 
-router.delete('/events/delete/:id', isAuthenticated, async (req, res) => {
+router.delete('/events/delete/:id', async (req, res) => {
     await Event.findByIdAndRemove(req.params.id);
     req.flash('success_msg', 'Esdeveniment esborrat correctament');
     res.redirect('/events')

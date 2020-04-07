@@ -8,16 +8,16 @@ const PollSchema = new Schema({
     },
     yes: {
         type: Number,
-        required: true
+        default: 0
     },
     no: {
         type: Number,
-        required: true
+        default: 0
     },
     date: {
         type: Date,
-        required: true
+        default: Date.now
     }
 });
 
-module.exports = mongoose.model('Incident', IncidentSchema);
+module.exports = mongoose.model('Poll', PollSchema);

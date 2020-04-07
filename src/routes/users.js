@@ -11,6 +11,12 @@ router.get('/users/list', isAuthenticated, async (req, res) => {
     res.render('users/list', { organizators: organizators, admin: organizator.admin });
 });
 
+router.delete('/users/delete/:id', async (req, res) => {
+    await Organizator.findByIdAndRemove(req.params.id);
+    req.flash('success_msg', 'Esdeveniment esborrat correctament');
+    res.redirect('/users/list');
+});
+
 router.get('/users/signin', (req, res) => {
     res.render('users/signin');
 });
@@ -47,7 +53,7 @@ router.post('/users/signup', async (req, res) => {
         newOrganizator.password = await newOrganizator.encryptPassword(password);
         await newOrganizator.save();
         req.flash('success_msg', 'Usuari registrat correctament');
-        res.redirect('/events')
+        res.redirect('/users/list')
     }
 });
 
@@ -55,4 +61,5 @@ router.get('/users/logout', (req, res) => {
     req.logout()
     res.redirect('/')
 })
+
 module.exports = router;

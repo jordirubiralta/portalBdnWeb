@@ -15,14 +15,8 @@
                     <td>{{email}}</td>
                     <td>{{creation_date}}</td>
                     <td>
-                        <form action="/users/edit-organizator/{{_id}}?_method=PUT" method="POST">
-                        <input type="hidden" name="_method" value="PUT"> 
-                            <div class="form-group">
-                                <button class="btn btn-primary btn-block" type="submit">Resoldre</button>
-                            </div>
-                        </form>
-                        <form action="/users/edit-organizator/{{_id}}?_method=PUT" method="POST">
-                        <input type="hidden" name="_method" value="PUT"> 
+                        <form action="/users/delete/{{_id}}?_method=DELETE" method="POST">
+                        <input type="hidden" name="_method" value="DELETE">
                             <div class="form-group">
                                 <button class="btn btn-danger btn-block" type="submit">Esborrar</button>
                             </div>
