@@ -13,7 +13,7 @@ router.get('/users/list', isAuthenticated, async (req, res) => {
 
 router.delete('/users/delete/:id', async (req, res) => {
     await Organizator.findByIdAndRemove(req.params.id);
-    req.flash('success_msg', 'Esdeveniment esborrat correctament');
+    req.flash('success_msg', 'Organitzador esborrat correctament');
     res.redirect('/users/list');
 });
 
@@ -52,7 +52,7 @@ router.post('/users/signup', async (req, res) => {
         const newOrganizator = new Organizator({name, email, password})
         newOrganizator.password = await newOrganizator.encryptPassword(password);
         await newOrganizator.save();
-        req.flash('success_msg', 'Usuari registrat correctament');
+        req.flash('success_msg', 'Organitzador registrat correctament');
         res.redirect('/users/list')
     }
 });
